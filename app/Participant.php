@@ -21,9 +21,4 @@ class participant extends Model
         'name', 'class', 'school', 'level', 'competition_id'
     ];
 
-
-    public function score()
-    {
-        return $this->hasOne(App\Score);
-    }
 }

@@ -1,6 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $startedA = App\Game::where('competition_id', 0)->first();
+        $startedB = App\Game::where('competition_id', 1)->first();
+
+         if (!empty($startedA)) {
+                $startedA = true;
+            } else {
+                $startedA = false;
+            }
+
+            if (!empty($startedB)) {
+                $startedB = true;
+            } else {
+                $startedB = false;
+            }
+    @endphp
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -64,16 +80,26 @@
                         <div class="form-group row">
                             <label for="competition" class="col-md-4 col-form-label text-md-right">{{ __('Speel niveau') }}</label>
                             <div class="col-md-6">
-                                <label class="radio-inline"><input name="competition_id" type="radio" value="0">{{ __('Beginner') }}</label>
-                                <label class="radio-inline"><input name="competition_id" type="radio" value="1">{{ __('Gevorderd') }}</label>
+                                @if (!$startedA)
+                                    <label class="radio-inline"><input name="competition_id" type="radio" value="0">{{ __('Beginner') }}</label>
+                                @endif
+                                @if (!$startedB)
+                                    <label class="radio-inline"><input name="competition_id" type="radio" value="1">{{ __('Gevorderd') }}</label>
+                                    @endif
                             </div>
                         </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+
+                                @if (!$startedA || !$startedB)
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Register') }}
+                                    </button>
+                                @else
+                                    <div class="alert alert-danger" role="alert">
+                                        U kunt u helaas niet registreren omdat de poule's zijn al gestart.
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </form>

@@ -28,12 +28,50 @@ class ParticipantsController extends Controller
      */
     public function index()
     {
-        $confirm = View::make('modals.confirmbox');
         // Get competition a an b and send it to the view
         $competitionA = App\participant::where('competition_id', 0)->get();
         $competitionB = App\participant::where('competition_id', 1)->get();
 
-        return view('participants/index', ['competitionA' => $competitionA, 'competitionB' => $competitionB, 'confirm' => $confirm]);
+        //Check if competition is started
+        $startedA = App\Game::where('competition_id', 0)->first();
+        $startedB = App\Game::where('competition_id', 1)->first();
+
+        if (!empty($startedA)) {
+            $startedA = true;
+        } else {
+            $startedA = false;
+        }
+
+        if (!empty($startedB)) {
+            $startedB = true;
+        } else {
+            $startedB = false;
+        }
+
+        return view('participants/index', ['competitionA' => $competitionA, 'competitionB' => $competitionB, 'startedA' => $startedA, 'startedB' => $startedB]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
@@ -51,4 +89,6 @@ class ParticipantsController extends Controller
 
         return redirect('/participants');
     }
+
+
 }

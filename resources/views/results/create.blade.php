@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container">
         <h5 class="card-title">Wedstrijd ID: {{$game->id}}</h5>
         <div class="row">
@@ -13,13 +14,15 @@
                 </div>
             </div>
             <div class="col">
-                <form action="">
-                <div class="result" style="padding-top: 20px; text-align:center">
-                    <input type="number" max="6" min="0" maxlength="1" style="width:40px;">
-                    -
-                    <input type="number" max="6" min="0" maxlength="1" style="width:40px;">
+                <form action="/results/store/{{$game->id}}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="game_id" value="{{ $game->id }}">
+                    <div class="result" style="padding-top: 20px; text-align:center">
+                        <input name="participant_1" type="number" max="6" min="0" maxlength="1" style="width:40px;">
+                        -
+                        <input name="participant_2" type="number" max="6" min="0" maxlength="1" style="width:40px;">
 
-                </div>
+                    </div>
                     <div class="button" style="text-align:center; padding-top:10px;">
                         <input type="submit" value="toevoegen" class="btn btn-primary" >
                     </div>

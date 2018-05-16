@@ -19,12 +19,10 @@ class game extends Model
      * @var array
      */
     protected $fillable = [
-        'participant_id_1', 'participant_id_2', 'competition_id'
+        'participant_id_1', 'participant_id_2', 'competition_id', 'played'
     ];
 
-    public function participant()
-    {
-        return $this->hasMany(App\Participant);
+    // Disable the timestamps, created_at, updated_at
+    public $timestamps = false;
 
-    }
 }

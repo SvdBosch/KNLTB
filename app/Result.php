@@ -18,6 +18,6 @@ class result extends Model
      * @var array
      */
     protected $fillable = [
-        'game_id', 'result', 'score'
+        'game_id', 'score'
     ];
 }

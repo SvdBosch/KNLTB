@@ -19,12 +19,14 @@ Auth::routes();
 /* Routes 'Wedstrijden' */
 Route::get('/scheme', 'gameController@index')->name('scheme');
 Route::get('/', 'gameController@index');
-Route::get('/scheme/store/{competition_id}', 'gameController@store');
+Route::get('/scheme/generate/{competition_id}', 'gameController@generate');
 
 /* Routes 'Standen' */
-
 Route::get('/standings', 'ScoreController@index')->name('standings');
-Route::get('/results/store/{id}', 'ResultsController@edit');
+
+/* Routes 'Results' */
+Route::get('/results/create/{id}', 'ResultsController@create');
+Route::post('/results/store/{id}', 'ResultsController@store');
 
 /* Routes 'Deelnemers' */
 Route::get('/participants', 'ParticipantsController@index')->name('participants');

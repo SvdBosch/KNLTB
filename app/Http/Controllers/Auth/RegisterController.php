@@ -40,6 +40,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        //Check if competition is started
     }
 
     /**
@@ -86,7 +87,9 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
+        // Disabled because participants can't log in
 //        $this->guard()->login($user);
+        $request->session()->flash('message', 'Dank u wel voor het registreren, De beheerders gaan met uw inschrijving aan de slag.');
 
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());

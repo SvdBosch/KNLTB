@@ -1,8 +1,15 @@
+// Only start code if document is loaded
 $( document ).ready(function() {
-    //Delete confirmbox
+    /**
+    * Bootbox plugin for delete Confirmbox
+    */
     $('a[name="delete"]').click(function(e, ) {
-        var url = $(this).prop('href');
         e.preventDefault();
+
+        // Get the url of clicked button
+        var url = $(this).prop('href');
+
+        // Bootstrap bootbox plugin
         bootbox.confirm({
             message: "Weet u het zeker?",
             buttons: {
@@ -16,7 +23,7 @@ $( document ).ready(function() {
                 }
             },
             callback: function (result) {
-                console.log('This was logged in the callback: ' + result);
+                // Based on click from user else the modal gets closed automatically
                 if (result) {
                     window.location.href = url;
                 }
@@ -24,12 +31,21 @@ $( document ).ready(function() {
         });
     });
 
-    //Create competition confirmbox
+    /**
+     * Bootbox plugin for Competition Confirmbox
+     *
+     * @param  bool minError
+     * @param  bool maxError
+     */
     $('a[name="createCompetition"]').click(function(e) {
+        e.preventDefault();
+
+        // Get
         var url = $(this).prop('href');
         var modelMessage = "";
         var competition_id =  $(this).data('competition');
 
+        // Set the message based on settet
         if (minError) {
             modelMessage = "Let op! er zijn minder dan 4 deelnemers, wilt u doorgaan?";
         } else if (maxError) {
@@ -38,7 +54,8 @@ $( document ).ready(function() {
             modelMessage = "Let op! u staat op het punt om een wedstrijdschema aan te maken.";
         }
 
-        e.preventDefault();
+
+        // Bootstrap bootbox plugin
         bootbox.confirm({
             message: modelMessage,
             buttons: {
@@ -52,7 +69,7 @@ $( document ).ready(function() {
                 }
             },
             callback: function (result) {
-                console.log('This was logged in the callback: ' + result);
+                // Based on click from user else the modal gets closed automatically
                 if (result) {
                     window.location.href = url + '/' + competition_id ;
                 }

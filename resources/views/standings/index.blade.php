@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="container">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        @if (Auth::user())
+            <button class="btn btn-primary d-print-none" onclick="window.print();" style="margin-bottom: 10px;">Printen</button>
+        @endif
+        <ul class="nav nav-tabs d-print-none" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#a" role="tab" aria-controls="home" aria-selected="true">Poule A</a>
             </li>
@@ -12,48 +15,64 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="a" role="tabpanel" aria-labelledby="home-tab">
+                <h2 class="d-none d-print-block">Beginners poule (Poule A)</h2>
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th scope="col">Tijd</th>
-                        <th scope="col">Deelnemer 1</th>
-                        <th scope="col">Deelnemer 2</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Plaats</th>
+                            <th scope="col">Naam</th>
+                            <th scope="col">Gespeeld</th>
+                            <th scope="col">Gewonnen</th>
+                            <th scope="col">Verloren</th>
+                            <th scope="col">Punten</th>
+                        </tr>
                     </thead>
                     <tbody>
-
-                    @foreach($games as $game)
-                        @if ($game->competition_id === 0)
-                            <tr id="{{ $game->id }}">
-                                <th scope="row">{{ date('H:i',strtotime($game->time)) }}</th>
-                                <td>{{ $game->participant_id_1 }}</td>
-                                <td>{{ $game->participant_id_2 }}</td>
+                    @php $i = 1; @endphp
+                    @foreach( $results as $result)
+                        @if ($result->competition_id === 0)
+                            <tr>
+                                <th>{{ $i }}</th>
+                                <td>{{ $result->participant_id }}</td>
+                                <td>{{ $result->played }}</td>
+                                <td>{{ $result->won }}</td>
+                                <td>{{ $result->lost }}</td>
+                                <td>{{ $result->points }}</td>
                             </tr>
+                            @php $i++; @endphp
                         @endif
                     @endforeach
                     </tbody>
                 </table>
             </div>
             <div class="tab-pane fade" id="b" role="tabpanel" aria-labelledby="profile-tab">
+                <h2 class="d-none d-print-block">Gevorderde poule (Poule B)</h2>
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Tijd</th>
-                        <th scope="col">Deelnemer 1</th>
-                        <th scope="col">Deelnemer 2</th>
+                        <th scope="col">Plaats</th>
+                        <th scope="col">Naam</th>
+                        <th scope="col">Gespeeld</th>
+                        <th scope="col">Gewonnen</th>
+                        <th scope="col">Verloren</th>
+                        <th scope="col">Punten</th>
                     </tr>
                     </thead>
                     <tbody>
-
-                    @foreach($games as $game)
-                        @if ($game->competition_id === 1)
-                            <tr id="{{ $game->id }}">
-                                <th scope="row">{{ date('H:i',strtotime($game->time)) }}</th>
-                                <td>{{ $game->participant_id_1 }}</td>
-                                <td>{{ $game->participant_id_2 }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
+                        @php $i = 1; @endphp
+                        @foreach( $results as $result)
+                            @if ($result->competition_id === 1)
+                                <tr>
+                                    <th>{{ $i }}</th>
+                                    <td>{{ $result->participant_id }}</td>
+                                    <td>{{ $result->played }}</td>
+                                    <td>{{ $result->won }}</td>
+                                    <td>{{ $result->lost }}</td>
+                                    <td>{{ $result->points }}</td>
+                                </tr>
+                                @php $i++; @endphp
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -79,9 +79,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <div class="models">
-            {!! View::make('modals.confirmbox') !!}
-        </div>
     </div>
 </body>
 </html>

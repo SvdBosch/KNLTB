@@ -22,8 +22,6 @@ class Score extends Model
         'participant_id', 'played', 'won', 'lost', 'points'
     ];
 
-    public function participant()
-    {
-        return $this->belongsTo(App\Participant);
-    }
+    // Disable the timestamps, created_at, updated_at
+    public $timestamps = false;
 }
